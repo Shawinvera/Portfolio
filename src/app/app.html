@@ -1,0 +1,225 @@
+<!-- HEADER -->
+<header class="navbar">
+  <div class="container nav-row">
+    <a class="brand" href="#home" (click)="closeMenu()" aria-label="Go to top">
+      <span class="logo">SO</span>
+    </a>
+
+    <ul class="nav-links" id="site-menu" [class.open]="menuOpen">
+      @for (l of navLinks; track l.href; let i = $index) {
+        <li>
+          <a [href]="l.href" [class.active]="i === 0" (click)="closeMenu()">{{ l.label }}</a>
+        </li>
+      }
+      <!-- Only visible inside the mobile menu -->
+      <li class="menu-cta">
+        <a class="btn btn-red" href="assets/cv.pdf" download (click)="closeMenu()">⤓ Download CV</a>
+      </li>
+    </ul>
+
+    <div class="nav-right">
+      <div class="based"><small>Based in</small><strong>Nairobi, Kenya</strong></div>
+      <a class="btn btn-red btn-sm nav-cv" href="assets/cv.pdf" download>Download CV</a>
+
+      <button
+        class="menu-btn"
+        type="button"
+        [class.open]="menuOpen"
+        (click)="toggleMenu()"
+        [attr.aria-expanded]="menuOpen"
+        aria-controls="site-menu"
+        aria-label="Toggle navigation menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- Dim background when the mobile menu is open -->
+@if (menuOpen) {
+  <div class="menu-backdrop" (click)="closeMenu()"></div>
+}
+
+<main class="container">
+  <div class="breadcrumb">Home <span>/</span> <strong>Portfolio</strong></div>
+
+  <!-- HERO -->
+  <section id="home" class="hero card-lg">
+    <div class="hero-text">
+      <div class="pills">
+        <span class="pill">Full stack developer</span>
+        <span class="pill">Mobile app developer</span>
+      </div>
+
+      <h1>Hi, I'm Shawin.</h1>
+
+      <p class="muted">
+        I build web and mobile applications and manage the databases behind them, turning ideas into reliable, user-friendly digital solutions.
+      </p>
+
+      <div class="actions">
+        <a class="btn btn-red" href="#projects">View my projects</a>
+        <a class="btn btn-outline" href="#contact">Contact me</a>
+      </div>
+
+      <div class="pills stats">
+        <span class="pill pill-solid">1+ Year working at SoftKit Limited</span>
+        <span class="pill pill-solid">3+ Years: Freelance &amp; Personal Projects</span>
+      </div>
+    </div>
+
+    <div class="photo">
+      <img src="assets/Profile.jpg" alt="Photo of Shawinvera" />
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about" class="about">
+    <div class="about-left">
+      <span class="eyebrow">About me</span>
+      <h2>A bit about me</h2>
+      <div class="chips">
+        @for (s of skills; track $index) {
+          <span class="chip">{{ s }}</span>
+        }
+      </div>
+    </div>
+
+    <div class="about-right">
+      <p class="muted">
+        I'm a detail-oriented full stack developer with strong programming foundations and hands-on experience building web applications, mobile apps, and database-driven systems. I enjoy working across the whole stack, from designing clean, responsive interfaces to building the back-end logic and data layers that power them.
+      </p>
+      <p class="muted">
+        I'm passionate about innovative IT solutions and want to contribute to digital transformation projects in a dynamic development team, while continuing to sharpen my skills.
+      </p>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects" class="projects">
+    <div class="section-head">
+      <h2>Projects <small>({{ projects.length }})</small></h2>
+      <span class="muted small">Swipe sideways to see all projects</span>
+    </div>
+    <div class="scroller">
+      @for (p of projects; track $index) {
+        <article class="project">
+          <div class="shot">
+            @if (p.image) {
+              <img [src]="p.image" [alt]="p.title + ' screenshot'" loading="lazy" />
+            } @else {
+              <span>{{ p.title }}</span>
+            }
+          </div>
+          <div class="project-body">
+            <h3>{{ p.title }}</h3>
+            <p class="muted small">{{ p.description }}</p>
+            <div class="tags">
+              @for (t of p.tech; track $index) { <span class="tag">{{ t }}</span> }
+            </div>
+            <div class="actions">
+              @if (p.status) {
+                <span class="status">{{ p.status }}</span>
+              }
+              @if (p.code) {
+                <a class="btn btn-outline btn-sm" [href]="p.code" target="_blank" rel="noopener">&lt;&gt; {{ p.code2 ? 'Backend' : 'Code' }}</a>
+              }
+              @if (p.code2) {
+                <a class="btn btn-outline btn-sm" [href]="p.code2" target="_blank" rel="noopener">&lt;&gt; Frontend</a>
+              }
+              @if (p.demo) {
+                <a class="btn btn-red btn-sm" [href]="p.demo" target="_blank" rel="noopener">▷ Live Demo</a>
+              }
+            </div>
+          </div>
+        </article>
+      }
+    </div>
+  </section>
+
+  <!-- CV -->
+  <section id="cv" class="cv">
+    <span class="eyebrow">Resume</span>
+    <h2>Curriculum Vitae</h2>
+
+    <div class="cv-grid">
+      <div class="card-white">
+        <h3>CV Preview</h3>
+        <a class="cv-preview-link" href="assets/cv.pdf" target="_blank" rel="noopener">
+          <img class="cv-image" src="assets/cv-preview.png" alt="Preview of my CV" loading="lazy" />
+        </a>
+      </div>
+
+      <div class="cv-side">
+        <div class="card-tint">
+          <h3>About my CV</h3>
+          <p class="muted small">
+            My CV covers my work as a software developer, my education at KCA University, and my technical skills in web development, REST APIs, databases, and Agile teamwork. It also includes my IT internship, leadership roles, and certifications.
+          </p>
+          <strong class="small">Highlights include:</strong>
+          <ul class="highlights">
+            @for (h of highlights; track $index) { <li>{{ h }}</li> }
+          </ul>
+        </div>
+
+        <a class="btn btn-red btn-block" href="assets/cv.pdf" download>⤓ Download CV (PDF)</a>
+        <a class="btn btn-outline btn-block" href="assets/cv.pdf" target="_blank" rel="noopener">↗ Open in New Tab</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="contact">
+    <span class="eyebrow">Contact</span>
+    <h2>Get in touch</h2>
+    <p class="muted">Have a project or an opportunity in mind? Send a message and I'll reply within two working days.</p>
+
+    <div class="contact-grid">
+      <div class="card-tint">
+        <h3>Contact Information</h3>
+        <a class="info" href="tel:+254705145256">
+          <span class="icon">☎</span>
+          <div><small>Phone</small><strong>+254 705 145 256</strong></div>
+        </a>
+        <a class="info" href="mailto:opadeshawinvera&#64;gmail.com">
+          <span class="icon">✉</span>
+          <div><small>Email</small><strong>opadeshawinvera&#64;gmail.com</strong></div>
+        </a>
+        <div class="info">
+          <span class="icon">⌖</span>
+          <div><small>Location</small><strong>Nairobi, Kenya</strong></div>
+        </div>
+        <h3 class="mt">Connect with me</h3>
+        <div class="socials">
+          @for (s of socials; track s.label) {
+            <a class="icon social" [href]="s.href" target="_blank" rel="noopener">{{ s.label }}</a>
+          }
+        </div>
+      </div>
+
+      <form class="card-white form" (ngSubmit)="send()" #f="ngForm">
+        <label>Name *
+          <input name="name" [(ngModel)]="form.name" placeholder="Your full name" autocomplete="name" required />
+        </label>
+        <label>Email *
+          <input name="email" type="email" [(ngModel)]="form.email" placeholder="your.email@example.com" autocomplete="email" required />
+        </label>
+        <label>Message *
+          <textarea name="message" rows="4" [(ngModel)]="form.message" placeholder="Tell me about your project or how I can help you..." required></textarea>
+        </label>
+        <button class="btn btn-red btn-block" type="submit" [disabled]="f.invalid || sending">
+          {{ sending ? 'Sending...' : '➤ Send Message' }}
+        </button>
+        @if (sent) { <p class="ok">Thanks! Your message was sent. I'll reply soon.</p> }
+        @if (error) { <p class="err">Something went wrong. Please try again or email me directly.</p> }
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="container footer-row">
+    <span>© {{ year }} {{ name }}</span>
+    <a href="#home">Back to top</a>
+  </div>
+</footer>
