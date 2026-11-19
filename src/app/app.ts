@@ -56,7 +56,7 @@ export class App {
   skills = [
     'NodeJS', 'AngularJs', 'Springboot', 'Java', 'MySQL', 'TailwindCSS', 'HTML', 'CSS',
     'JavaScript', 'TypeScript', 'Android dev with Java', 'Git', 'GitHub', 'RESTful APIs',
-    'Google SSO', 'M-Pesa STK Push', 'Postman', 'Canva',
+    'Google SSO', 'M-Pesa STK Push', 'Postman', 'Canva','Python', 'Docker',
   ];
 
   projects: Project[] = [
